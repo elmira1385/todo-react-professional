@@ -1,7 +1,22 @@
 @import "tailwindcss";
 body{
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 :root{
   height: 100%;
+}
+@theme{
+  --color-tx-100:#1e2939;
+  --color-tx-200:hsl(259 94% 51%);
+  --color-tx-300:#36d399;
+  --color-tx-400:#fbbd23;
+  --color-tx-500:#3abff8;
+  --color-border-100:#1f29371a;
+  --color-border-200:#f000b8;
+  --color-border-300:hsl(215 28% 17% / .2);
+  --color-bg-100:#1f2937;
+  --color-bg-200:#f87272;
 }
