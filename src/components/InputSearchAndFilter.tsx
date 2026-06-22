@@ -20,7 +20,7 @@ const InputSearchAndFilter = () => {
         />
       </div>
       <div className="flex flex-col relative">
-        <div
+        <button
           onClick={() => {
             setShowModulFilter(!showModulFilter);
           }}
@@ -30,7 +30,7 @@ const InputSearchAndFilter = () => {
           <p className=" text-[14px] uppercase group-hover:text-white">
             Filter
           </p>
-        </div>
+        </button>
         {showModulFilter && (
           <ul className=" z-10 flex flex-col shadow rounded-lg  bg-white absolute top-12 p-2 left-0">
             <li className="text-gray-600 hover:bg-gray-200 cursor-pointer rounded-[7px] transition-all px-2 py-2 active:bg-tx-200 active:text-white">
