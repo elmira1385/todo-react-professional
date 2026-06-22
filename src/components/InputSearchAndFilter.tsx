@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { IoFilter } from "react-icons/io5";
 
