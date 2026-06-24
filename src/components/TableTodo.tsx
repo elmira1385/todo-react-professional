@@ -1,17 +1,34 @@
 import { AiOutlineCheck } from "react-icons/ai";
 import { CiEdit } from "react-icons/ci";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { useTodo, type TTodo } from "../store/useTodo";
+import { useTodo} from "../store/useTodo";
 import { TiDeleteOutline } from "react-icons/ti";
+import { useSearch } from "../store/useSearch";
+import { useFilter } from "../store/useFilter";
+import { useSort } from "../store/useSort";
 
-export type TProps={
-  allFeatureAndTodo:TTodo[]
-}
 
-const TableTodo = ({allFeatureAndTodo}:TProps) => {
-  const { setIsEditing, setTitle, setData, clearOne, toggleStatus } =
+
+const TableTodo = () => {
+  const { todo,setIsEditing, setTitle, setData, clearOne, toggleStatus } =
     useTodo();
-  
+  const { search } = useSearch();
+  const { filter } = useFilter();
+  const { sort } = useSort();
+  const allFeatureAndTodo = [...todo]
+    .filter((item) =>
+      item.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()),
+    )
+    .filter((item) => {
+      if (filter === "pending") return item.status === "pending";
+      else if (filter === "completed") return item.status === "completed";
+      else return true;
+    })
+    .sort((a, b) =>
+      sort === "asc"
+        ? a.title.localeCompare(b.title, "fa")
+        : b.title.localeCompare(a.title, "fa"),
+    );
   return (
     <div className="flex flex-col gap-4">
       <div className="flex *:uppercase *:text-sm">

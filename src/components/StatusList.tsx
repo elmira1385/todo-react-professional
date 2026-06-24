@@ -3,20 +3,21 @@ import { AiFillCheckCircle } from "react-icons/ai";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { AiFillClockCircle } from "react-icons/ai";
 import Card from "./Card";
-import type { TProps } from "./TableTodo";
-const StatusList = ({allFeatureAndTodo}:TProps) => {
-  
-  const completedLength = allFeatureAndTodo.filter(
+import { useTodo } from "../store/useTodo";
+const StatusList = () => {
+  const { todo } = useTodo();
+ 
+  const completedLength = todo.filter(
     (item) => item.status === "completed"
   ).length;
-  const pendingLength = allFeatureAndTodo.filter((item) => item.status === "pending").length;
-  const progress =allFeatureAndTodo.length===0 ?0:Math.round((completedLength/allFeatureAndTodo.length) * 100);
+  const pendingLength = todo.filter((item) => item.status === "pending").length;
+  const progress =todo.length===0 ?0:Math.round((completedLength/todo.length) * 100);
   return (
     <section className="flex flex-col gap-6  ">
       <div className="flex justify-center items-center shadow-xl rounded-2xl">
         <Card
           title="total tasks"
-          count={allFeatureAndTodo.length}
+          count={todo.length}
           color="text-tx-200"
           border="border-r"
           borderColor="border-gray-300"
