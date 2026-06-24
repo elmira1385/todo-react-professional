@@ -1,9 +1,13 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { IoFilter } from "react-icons/io5";
+import { useSearch } from "../store/useSearch";
+import { useFilter } from "../store/useFilter";
 
 const InputSearchAndFilter = () => {
   const [showModulFilter, setShowModulFilter] = useState(false);
+  const { setSearch } = useSearch();
+  const { setFilter } = useFilter();
   return (
     <div className="flex gap-4 justify-between">
       <div
@@ -14,6 +18,9 @@ const InputSearchAndFilter = () => {
       >
         <FaSearch className="text-gray-400" />
         <input
+          onChange={(e) => {
+            setSearch(e.target.value);
+          }}
           type="text"
           placeholder="Search tasks... (Ctrl+F)"
           className="text-gray-600 outline-none w-full"
@@ -33,15 +40,35 @@ const InputSearchAndFilter = () => {
         </button>
         {showModulFilter && (
           <ul className=" z-10 flex flex-col shadow rounded-lg  bg-white absolute top-12 p-2 left-0">
-            <li className="text-gray-600 hover:bg-gray-200 cursor-pointer rounded-[7px] transition-all px-2 py-2 active:bg-tx-200 active:text-white">
+            <li
+              onClick={() => {
+                setFilter("all");
+                setShowModulFilter(false)
+              }}
+              className="text-gray-600 hover:bg-gray-200 cursor-pointer rounded-[7px] transition-all px-2 py-2 active:bg-tx-200 active:text-white"
+            >
               <a>All Tasks</a>
             </li>
 
-            <li className="text-gray-600 hover:bg-gray-200 cursor-pointer rounded-[7px] transition-all px-2 py-2 active:bg-tx-200 active:text-white">
+            <li
+              onClick={() => {
+                setFilter("pending");
+                setShowModulFilter(false)
+
+              }}
+              className="text-gray-600 hover:bg-gray-200 cursor-pointer rounded-[7px] transition-all px-2 py-2 active:bg-tx-200 active:text-white"
+            >
               <a>Pending</a>
             </li>
 
-            <li className="text-gray-600 hover:bg-gray-200 cursor-pointer rounded-[7px] transition-all px-2 py-2 active:bg-tx-200 active:text-white">
+            <li
+              onClick={() => {
+                setFilter("completed");
+                setShowModulFilter(false)
+
+              }}
+              className="text-gray-600 hover:bg-gray-200 cursor-pointer rounded-[7px] transition-all px-2 py-2 active:bg-tx-200 active:text-white"
+            >
               <a>Completed</a>
             </li>
           </ul>

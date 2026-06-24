@@ -1,12 +1,17 @@
 import { AiOutlineCheck } from "react-icons/ai";
 import { CiEdit } from "react-icons/ci";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { useTodo } from "../store/useTodo";
+import { useTodo, type TTodo } from "../store/useTodo";
 import { TiDeleteOutline } from "react-icons/ti";
 
-const TableTodo = () => {
-  const { todo, setIsEditing, setTitle, setData, clearOne, toggleStatus } =
+export type TProps={
+  allFeatureAndTodo:TTodo[]
+}
+
+const TableTodo = ({allFeatureAndTodo}:TProps) => {
+  const { setIsEditing, setTitle, setData, clearOne, toggleStatus } =
     useTodo();
+  
   return (
     <div className="flex flex-col gap-4">
       <div className="flex *:uppercase *:text-sm">
@@ -16,12 +21,19 @@ const TableTodo = () => {
         <p className="flex-1">Actions</p>
       </div>
       <ul className="flex flex-col gap-4 ">
-        {todo.length === 0 ? (
+        {allFeatureAndTodo.length === 0 ? (
           <p className="text-center">No tasks found</p>
         ) : (
-          todo.map((item) => (
-            <li key={item.id} className={`flex ${item.status==="completed"&&"opacity-50"}`}>
-              <p className={`flex-2 ${item.status==="completed"&&"line-through"}`}>{item.title}</p>
+          allFeatureAndTodo.map((item) => (
+            <li
+              key={item.id}
+              className={`flex ${item.status === "completed" && "opacity-50"}`}
+            >
+              <p
+                className={`flex-2 ${item.status === "completed" && "line-through"}`}
+              >
+                {item.title}
+              </p>
               <p className="flex-1">{item.data || "No due data"}</p>
               <div className="flex-1">
                 <span

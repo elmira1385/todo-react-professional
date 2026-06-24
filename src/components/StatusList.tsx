@@ -3,20 +3,20 @@ import { AiFillCheckCircle } from "react-icons/ai";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { AiFillClockCircle } from "react-icons/ai";
 import Card from "./Card";
-import { useTodo } from "../store/useTodo";
-const StatusList = () => {
-  const { todo } = useTodo();
-  const completedLength = todo.filter(
+import type { TProps } from "./TableTodo";
+const StatusList = ({allFeatureAndTodo}:TProps) => {
+  
+  const completedLength = allFeatureAndTodo.filter(
     (item) => item.status === "completed"
   ).length;
-  const pendingLength = todo.filter((item) => item.status === "pending").length;
-  const progress =todo.length===0 ?0:Math.round((completedLength/todo.length) * 100);
+  const pendingLength = allFeatureAndTodo.filter((item) => item.status === "pending").length;
+  const progress =allFeatureAndTodo.length===0 ?0:Math.round((completedLength/allFeatureAndTodo.length) * 100);
   return (
-    <section className="flex flex-col gap-2  ">
+    <section className="flex flex-col gap-6  ">
       <div className="flex justify-center items-center shadow-xl rounded-2xl">
         <Card
           title="total tasks"
-          count={todo.length}
+          count={allFeatureAndTodo.length}
           color="text-tx-200"
           border="border-r"
           borderColor="border-gray-300"
@@ -45,7 +45,7 @@ const StatusList = () => {
           <AiFillClockCircle className="w-6 h-6 text-tx-500" />
         </Card>
       </div>
-      <div className="w-full bg-gray-200 h-3 rounded-[10px] mt-5">
+      <div className="w-full bg-gray-200 h-3 rounded-[10px] ">
         <div
           style={{ width: `${progress}%` }}
           className="h-3 rounded-[10px] bg-tx-200 transition-all"

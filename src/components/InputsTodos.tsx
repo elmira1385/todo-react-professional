@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useTodo } from "../store/useTodo";
 import { v4 as uuidv4 } from "uuid";
