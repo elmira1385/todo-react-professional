@@ -6,12 +6,13 @@ import Card from "./Card";
 import { useTodo } from "../store/useTodo";
 const StatusList = () => {
   const { todo } = useTodo();
- 
+
   const completedLength = todo.filter(
-    (item) => item.status === "completed"
+    (item) => item.status === "completed",
   ).length;
   const pendingLength = todo.filter((item) => item.status === "pending").length;
-  const progress =todo.length===0 ?0:Math.round((completedLength/todo.length) * 100);
+  const progress =
+    todo.length === 0 ? 0 : Math.round((completedLength / todo.length) * 100);
   return (
     <section className="flex flex-col gap-6  ">
       <div className="flex justify-center items-center shadow-xl rounded-2xl">

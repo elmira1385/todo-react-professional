@@ -1,20 +1,20 @@
 import { AiOutlineCheck } from "react-icons/ai";
 import { CiEdit } from "react-icons/ci";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { useTodo} from "../store/useTodo";
+import { useTodo } from "../store/useTodo";
 import { TiDeleteOutline } from "react-icons/ti";
 import { useSearch } from "../store/useSearch";
 import { useFilter } from "../store/useFilter";
 import { useSort } from "../store/useSort";
 
-
-
 const TableTodo = () => {
-  const { todo,setIsEditing, setTitle, setData, clearOne, toggleStatus } =
+  const { todo, setIsEditing, setTitle, setData, clearOne, toggleStatus } =
     useTodo();
+
   const { search } = useSearch();
   const { filter } = useFilter();
   const { sort } = useSort();
+
   const allFeatureAndTodo = [...todo]
     .filter((item) =>
       item.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()),
@@ -29,6 +29,20 @@ const TableTodo = () => {
         ? a.title.localeCompare(b.title, "fa")
         : b.title.localeCompare(a.title, "fa"),
     );
+
+  const HighlightTitle = (text: string, search: string) => {
+    if (!search) return text;
+    const split = text.split(new RegExp(`(${search})`, "gi"));
+    return split.map((part, index) =>
+      part.toLowerCase() === search.toLowerCase() ? (
+        <span key={index} className="bg-amber-300">
+          {part}
+        </span>
+      ) : (
+        part
+      ),
+    );
+  };
   return (
     <div className="flex flex-col gap-4">
       <div className="flex *:uppercase *:text-sm">
@@ -49,7 +63,7 @@ const TableTodo = () => {
               <p
                 className={`flex-2 ${item.status === "completed" && "line-through"}`}
               >
-                {item.title}
+                {HighlightTitle(item.title, search)}
               </p>
               <p className="flex-1">{item.data || "No due data"}</p>
               <div className="flex-1">
